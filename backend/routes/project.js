@@ -15,13 +15,14 @@
 // module.exports = router
 const express = require('express')
 const authMiddleware = require('../middlewares/authMiddleware')
-const { createProject, getProjects, updateProject, deleteProject } = require('../controllers/projectController')
+const { createProject, getProjects, updateProject, deleteProject, getProjectById } = require('../controllers/projectController')
 const checkRole = require('../middlewares/checkRole')
 const checkUserType = require('../middlewares/checkUserType')
 const router = express.Router()
 
 router.post('/',authMiddleware ,checkUserType('manager'),createProject)
 router.get('/', authMiddleware,getProjects)
+router.get('/:id', authMiddleware, getProjectById) // Assuming you want to get a specific project by ID
 router.put('/:id',authMiddleware,checkUserType('manager'), updateProject)
 router.delete('/:id',authMiddleware, checkUserType('manager'), deleteProject)
 
